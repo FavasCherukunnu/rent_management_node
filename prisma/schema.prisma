@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model m05_user {
+  id         Int      @id @default(autoincrement()) // Auto-incremented ID
+  m05_name       String     @db.VarChar(100)
+  m05_contact      String?   @db.VarChar(50)
+  m05_email      String?   @db.VarChar(100)
+  m05_password   String   @db.VarChar(100)
+  created_at DateTime @default(now()) // Track when the admin was created
+  updated_at DateTime @updatedAt // Automatically update timestamp when an update happens
+  deleted_at DateTime?
+
+  @@map("m05_user") // Ensures that the table name is "admin" (lowercase)
+}
+
