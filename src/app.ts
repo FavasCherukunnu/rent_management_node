@@ -8,6 +8,7 @@ import { errorHandlingMiddleware } from "./middlewares/errorHandling.middleware.
 import { AdminAuthenticationRouter } from "./routes/user/authentication.routes.js";
 import { TestRouter } from "./routes/test.routes.js";
 import { AdminBuildingRouter } from './routes/building.routes.js';
+import { AdminAppartmentRouter } from './routes/appartment.routes.js';
 dotenv.config();
 
 export const prisma = new PrismaClient();
@@ -53,7 +54,8 @@ app.use('/test',TestRouter)
 
 app.use('/api/user',
     AdminAuthenticationRouter,
-    AdminBuildingRouter
+    AdminBuildingRouter,
+    AdminAppartmentRouter
 )
 
 
