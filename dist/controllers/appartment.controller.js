@@ -30,10 +30,10 @@ export const apartmentCreateController = async (req, res, next) => {
         const image_path = req.files?.m02_image?.[0]?.path || null;
         const newApartment = await prisma.m02_appartment.create({
             data: {
-                m02_m01_building_id,
+                m02_m01_building_id: Number(m02_m01_building_id),
                 m02_door_no: m02_door_no || null,
                 m02_image: image_path || null,
-                m02_floor: m02_floor || null,
+                m02_floor: Number(m02_floor) || null,
                 m02_name,
             },
         });

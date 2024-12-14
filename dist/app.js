@@ -32,6 +32,7 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static('public'));
 // Configure express-session with default in-memory store
 app.use(session({
     secret: process.env.SESSION_STORE_SECRET, // Replace with a strong secret in production
