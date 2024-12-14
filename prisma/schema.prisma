@@ -26,3 +26,86 @@ model m05_user {
   @@map("m05_user") // Ensures that the table name is "admin" (lowercase)
 }
 
+
+
+model m01_building {
+  id                 Int      @id @default(autoincrement())
+  m01_name           String   @db.VarChar(255)
+  m01_address        String   @db.Text
+  m01_point_of_contact String? @db.Text       // Assuming text for flexibility; adjust as needed
+  m01_image          String?  @db.Text
+  m01_contact_no     String?  @db.VarChar(50)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+  deleted_at         DateTime?
+
+  @@map("m01_building") // Maps the model to the database table
+  m02_appartment m02_appartment[]
+}
+
+
+
+model m02_appartment {
+  id                  Int      @id @default(autoincrement())
+  m02_m01_building_id Int
+  m02_door_no         String?  @db.VarChar(50)
+  m02_image           String?  @db.Text
+  m02_floor           Int?
+  m02_name            String   @db.VarChar(255)
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+  deleted_at          DateTime?
+
+  // Define the foreign key relation
+  Building m01_building @relation(fields: [m02_m01_building_id], references: [id], onDelete: Cascade)
+
+  @@map("m02_appartment") // Maps the model to the database table
+  m03_room m03_room[]
+}
+
+model m03_room {
+  id                   Int      @id @default(autoincrement())
+  m03_m02_apartment_id Int
+  m03_name             String   @db.VarChar(255)
+  m03_door_no          String?  @db.VarChar(50)
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+  deleted_at           DateTime?
+
+  // Define the foreign key relation
+  Apartment m02_appartment @relation(fields: [m03_m02_apartment_id], references: [id], onDelete: Cascade)
+
+  @@map("m03_room") // Maps the model to the database table
+  m04_bed m04_bed[]
+}
+
+
+model m04_bed {
+  id                 Int      @id @default(autoincrement())
+  m04_m03_room_id    Int
+  m04_name           String   @db.VarChar(255)
+  m04_daily_price    Decimal  @db.Decimal(10, 2)
+  m04_monthly_price  Decimal  @db.Decimal(10, 2)
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+  deleted_at         DateTime?
+
+  // Define the foreign key relation
+  Room m03_room @relation(fields: [m04_m03_room_id], references: [id], onDelete: Cascade)
+
+  @@map("m04_bed") // Maps the model to the database table
+}
+
+
+model m06_customer {
+  id               Int      @id @default(autoincrement())
+  m06_name         String   @db.VarChar(255)
+  m06_contact_info String?  @db.VarChar(255)
+  m06_mobile_no    String?  @db.VarChar(30)
+  m06_photo_proof  String?  @db.VarChar(255)
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  deleted_at       DateTime?
+
+  @@map("m06_customer") // Maps the model to the database table
+}

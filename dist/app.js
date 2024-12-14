@@ -7,6 +7,7 @@ import session from "express-session";
 import { errorHandlingMiddleware } from "./middlewares/errorHandling.middleware.js";
 import { AdminAuthenticationRouter } from "./routes/user/authentication.routes.js";
 import { TestRouter } from "./routes/test.routes.js";
+import { AdminBuildingRouter } from './routes/building.routes.js';
 dotenv.config();
 export const prisma = new PrismaClient();
 const allowedOrigins = process.env.CORS_ORIGIN.split(',');
@@ -38,6 +39,6 @@ app.use(session({
     cookie: { maxAge: 5 * 60 * 1000 }, // Session expires in 5 minutes
 }));
 app.use('/test', TestRouter);
-app.use('/api/user', AdminAuthenticationRouter);
+app.use('/api/user', AdminAuthenticationRouter, AdminBuildingRouter);
 app.use(errorHandlingMiddleware);
 export { app };

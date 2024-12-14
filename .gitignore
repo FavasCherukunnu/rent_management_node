@@ -3,12 +3,12 @@
 # /dist
 # Ignore all files inside /public except for .sample.txt
 /public/*
-!/public/temp/
-!/public/temp/compressed
+!/public/assets/
+!/public/assets/images
 
-/public/temp/*
-!/public/temp/compressed
-!/public/temp/.sample.txt
+/public/assets/*
+!/public/assets/.sample.txt
+!/public/assets/images
 
-/public/temp/compressed/*
-!/public/temp/compressed/.sample.txt
+/public/assets/images/*
+!/public/assets/images/.sampe.txt
